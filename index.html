@@ -9,8 +9,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <!-- CSS -->
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="frontend/css/bootstrap.css">
+    <link rel="stylesheet" href="frontend/css/style.css">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header class="main-header">
@@ -23,13 +25,22 @@
                     <li><a href="#home" class="nav-link">Accueil</a></li>
                     <li><a href="#about" class="nav-link">À Propos</a></li>
                     <li><a href="#menu" class="nav-link">Notre Menu</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                    <li><a href="#faq" class="nav-link">FAQ</a></li>
+                    <li><a href="frontend/contact.html" class="nav-link">Contact</a></li>
+                    <li><a href="frontend/faq.html" class="nav-link">FAQ</a></li>
                 </ul>
             </nav>
-            <div class="header-actions">
-                <button class="btn-primary">Commander en ligne</button>
-            </div>
+                <div class="header-actions flex">
+                    <button id="cartToggle" class="cart-toggle">
+                        <i class="fas fa-shopping-basket"></i>
+                        <span id="cartBadge" class="cart-badge">0</span>
+                    </button>
+                    <a href="#menu" class="btn-primary hide-mobile"><span>Commander Maintenant</span></a>
+                    <div class="hamburger" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
         </div>
     </header>
 
@@ -42,12 +53,12 @@
                     <h2>Dégustez la perfection dans chaque bouchée.</h2>
                     <p>Découvrez des saveurs authentiques et des ingrédients de première qualité, préparés avec passion par nos chefs experts.</p>
                     <div class="hero-btns">
-                        <button class="btn-primary">Commander Maintenant</button>
-                        <button class="btn-secondary">Voir le Menu</button>
+                        <a href="#menu" class="btn-primary" style="text-decoration: none;"><span>Commander Maintenant</span></a>
+                        <a href="#menu" class="btn-secondary" style="text-decoration: none;"><span>Voir le Menu</span></a>
                     </div>
                 </div>
                 <div class="hero-image col-md-6">
-                    <img src="assets/img/article-1.png" alt="Salade fraîche Gourmet">
+                    <img src="frontend/assets/img/article-1.png" alt="Salade fraîche Gourmet">
                 </div>
             </div>
         </section>
@@ -78,12 +89,12 @@
         <section id="about" class="about-section about-left flex">
             <div class="container flex">
                 <div class="about-image col-md-6">
-                    <img src="assets/img/about-1.png" alt="Préparation de nos burgers">
+                    <img src="frontend/assets/img/about-1.png" alt="Préparation de nos burgers">
                 </div>
                 <div class="about-content col-md-5">
                     <h2>Nous cuisinons avec les meilleurs ingrédients.</h2>
                     <p>Qualité et fraîcheur sont au cœur de notre cuisine. Chaque ingrédient est sélectionné avec soin auprès de producteurs locaux.</p>
-                    <button class="btn-outline">En savoir plus</button>
+                    <a href="frontend/ingredients.html" class="btn-outline" style="text-decoration: none;"><span>En savoir plus</span></a>
                 </div>
             </div>
         </section>
@@ -99,16 +110,16 @@
                         <li><span class="dot"></span> Recettes traditionnelles</li>
                         <li><span class="dot"></span> Sans conservateurs</li>
                     </ul>
-                    <button class="btn-outline">Notre Histoire</button>
+                    <a href="frontend/histoire.html" class="btn-outline" style="text-decoration: none;"><span>Notre Histoire</span></a>
                 </div>
                 <div class="about-image col-md-6">
-                    <img src="assets/img/about-2.png" alt="Nos ingrédients frais">
+                    <img src="frontend/assets/img/about-2.png" alt="Nos ingrédients frais">
                 </div>
             </div>
         </section>
 
         <!-- Banner Section -->
-        <section class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('assets/img/hero-bg.png');">
+        <section class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('frontend/assets/img/hero-bg.png');">
             <div class="container">
                 <h2>Où que vous soyez, un festin vous attend.</h2>
                 <p>La satisfaction n'a pas de prix, que vous soyez chez vous ou chez nous.</p>
@@ -125,40 +136,40 @@
                 <div class="menu-grid flex">
                     <article class="menu-item">
                         <div class="item-img">
-                            <img src="assets/img/article-1.png" alt="Salade Gourmet">
+                            <img src="frontend/assets/img/article-1.png" alt="Salade Gourmet">
                         </div>
                         <div class="item-content">
                             <h5>Salade Végétarienne Gourmet</h5>
                             <p>Prêt en 10-15 Min | Livraison gratuite</p>
                             <div class="item-footer">
-                                <span class="price">$20</span>
-                                <button class="btn-buy">Commander</button>
+                                <span class="price">20 DH</span>
+                                <button class="btn-buy"><span>Ajouter au Panier</span></button>
                             </div>
                         </div>
                     </article>
                     <article class="menu-item">
                         <div class="item-img">
-                            <img src="assets/img/about-1.png" alt="Hamburger Classic">
+                            <img src="frontend/assets/img/about-1.png" alt="Hamburger Classic">
                         </div>
                         <div class="item-content">
                             <h5>Hamburger Signature Royale</h5>
                             <p>Prêt en 15-20 Min | Livraison gratuite</p>
                             <div class="item-footer">
-                                <span class="price">$30</span>
-                                <button class="btn-buy">Commander</button>
+                                <span class="price">30 DH</span>
+                                <button class="btn-buy"><span>Ajouter au Panier</span></button>
                             </div>
                         </div>
                     </article>
                     <article class="menu-item">
                         <div class="item-img">
-                            <img src="assets/img/article-3.png" alt="Frites Maison">
+                            <img src="frontend/assets/img/article-3.png" alt="Frites Maison">
                         </div>
                         <div class="item-content">
                             <h5>Frites Croustillantes Maison</h5>
                             <p>Prêt en 5-10 Min | Livraison gratuite</p>
                             <div class="item-footer">
-                                <span class="price">$15</span>
-                                <button class="btn-buy">Commander</button>
+                                <span class="price">15 DH</span>
+                                <button class="btn-buy"><span>Ajouter au Panier</span></button>
                             </div>
                         </div>
                     </article>
@@ -172,5 +183,304 @@
             <p>&copy; 2024 Gourmet BURGER | Tous droits réservés | Excellence Culinaire</p>
         </div>
     </footer>
+
+    <!-- Order Modal -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <h3 class="modal-title">Finaliser votre commande</h3>
+            <p class="modal-subtitle">Vous avez choisi : <strong id="productName"></strong></p>
+            
+            <form id="orderForm">
+                <div class="form-group">
+                    <label for="userName">Nom et Prénom</label>
+                    <input type="text" id="userName" required placeholder="Ex: John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="userPhone">Téléphone</label>
+                    <input type="tel" id="userPhone" required placeholder="Ex: 06 00 00 00 00">
+                </div>
+                <div class="form-group">
+                    <label for="userAddress">Adresse de livraison</label>
+                    <textarea id="userAddress" required placeholder="Ex: 123 Rue de la Paix, Paris" rows="2"></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;"><span>Confirmer la commande</span></button>
+            </form>
+            <div id="successMessage" class="success-message" style="display: none;">
+                ✅ Commande enregistrée avec succès!
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Cart Sidebar -->
+    <div id="cartOverlay" class="cart-overlay"></div>
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Votre Panier</h3>
+            <button id="closeCart" class="close-cart">&times;</button>
+        </div>
+        <div id="cartItems" class="cart-items">
+            <!-- Items will be injected here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotalSum">0.00 DH</span>
+            </div>
+            <button id="checkoutBtn" class="btn-primary" style="width: 100%;">
+                <span>Passer la Commande</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinksGroup = document.querySelector('.nav-links');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinksGroup.classList.toggle('active');
+        });
+
+        // Close menu when link is clicked
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinksGroup.classList.remove('active');
+            });
+        });
+
+        // Counter Animation
+        const stats = document.querySelectorAll('.stat-number');
+        const speed = 200;
+
+        const animateCounters = () => {
+            stats.forEach(counter => {
+                const animate = () => {
+                    const target = +counter.getAttribute('data-target') || parseInt(counter.innerText);
+                    if (!counter.getAttribute('data-target')) {
+                         counter.setAttribute('data-target', target);
+                         counter.innerText = '0';
+                    }
+                    
+                    const count = +counter.innerText;
+                    const inc = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(animate, 1);
+                    } else {
+                        counter.innerText = target + '+';
+                    }
+                }
+                animate();
+            });
+        }
+
+        // Intersection Observer for Active Menu and Counters
+        const sections = document.querySelectorAll('section[id]');
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Update Active Link
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+
+                    // Trigger Counters if entering stats
+                    if (entry.target.classList.contains('stats') && !entry.target.getAttribute('data-animated')) {
+                        animateCounters();
+                        entry.target.setAttribute('data-animated', 'true');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => observer.observe(section));
+        // Special case for stats which might not have an ID for navigation but needs animation
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) observer.observe(statsSection);
+
+        // Cart & Order Modal Logic
+        const orderModal = document.getElementById('orderModal');
+        const closeModal = document.getElementById('closeModal');
+        const orderForm = document.getElementById('orderForm');
+        const successMessage = document.getElementById('successMessage');
+        const buyButtons = document.querySelectorAll('.btn-buy');
+        
+        // Cart UI Elements
+        const cartToggle = document.getElementById('cartToggle');
+        const closeCart = document.getElementById('closeCart');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const cartOverlay = document.getElementById('cartOverlay');
+        const cartItemsContainer = document.getElementById('cartItems');
+        const cartBadge = document.getElementById('cartBadge');
+        const cartTotalSum = document.getElementById('cartTotalSum');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+
+        let cart = JSON.parse(localStorage.getItem('burgerCart')) || [];
+
+        function updateCartUI() {
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+            let count = 0;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="cart-empty">
+                        <span class="cart-empty-icon">🛒</span>
+                        <p>Votre panier est vide</p>
+                    </div>
+                `;
+            } else {
+                cart.forEach((item, index) => {
+                    const price = parseFloat(item.price);
+                    total += price * item.quantity;
+                    count += item.quantity;
+
+                    const itemEl = document.createElement('div');
+                    itemEl.classList.add('cart-item');
+                    itemEl.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <p class="cart-item-price">${item.price} DH</p>
+                            <div class="cart-item-qty">
+                                <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+                            </div>
+                        </div>
+                        <button class="remove-item" onclick="removeFromCart(${index})">&times;</button>
+                    `;
+                    cartItemsContainer.appendChild(itemEl);
+                });
+            }
+
+            cartBadge.innerText = count;
+            cartTotalSum.innerText = total.toFixed(2) + ' DH';
+            localStorage.setItem('burgerCart', JSON.stringify(cart));
+            checkoutBtn.disabled = cart.length === 0;
+        }
+
+        window.changeQty = function(index, delta) {
+            cart[index].quantity += delta;
+            if (cart[index].quantity < 1) cart[index].quantity = 1;
+            updateCartUI();
+        };
+
+        window.removeFromCart = function(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        };
+
+        const toggleCartFn = () => {
+            cartSidebar.classList.toggle('active');
+            cartOverlay.classList.toggle('active');
+        };
+
+        cartToggle.addEventListener('click', toggleCartFn);
+        closeCart.addEventListener('click', toggleCartFn);
+        cartOverlay.addEventListener('click', toggleCartFn);
+
+        // Global buy buttons logic
+        buyButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const article = e.target.closest('article');
+                if (!article) return;
+                
+                const name = article.querySelector('h5').innerText;
+                const price = article.querySelector('.price').innerText.replace(' DH', '').trim();
+                const image = article.querySelector('.item-img img').src;
+
+                const existingItem = cart.find(item => item.name === name);
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    cart.push({ name, price, image, quantity: 1 });
+                }
+
+                updateCartUI();
+                cartSidebar.classList.add('active');
+                cartOverlay.classList.add('active');
+            });
+        });
+
+        checkoutBtn.addEventListener('click', () => {
+            toggleCartFn();
+            orderModal.classList.add('show');
+            orderForm.style.display = 'block';
+            successMessage.style.display = 'none';
+            document.querySelector('.modal-subtitle strong').innerText = "Votre Commande (" + cart.length + " produits)";
+        });
+
+        closeModal.addEventListener('click', () => orderModal.classList.remove('show'));
+        window.addEventListener('click', (e) => e.target === orderModal && orderModal.classList.remove('show'));
+
+        updateCartUI();
+
+        // Handle Form Submit
+        orderForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = orderForm.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = "<span>Envoi en cours...</span>";
+
+            const orderData = {
+                products: cart,
+                name: document.getElementById('userName').value,
+                phone: document.getElementById('userPhone').value,
+                address: document.getElementById('userAddress').value
+            };
+
+            try {
+                const response = await fetch('./backend/api/orders.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(orderData)
+                });
+
+                const text = await response.text();
+                let result;
+                try {
+                    result = JSON.parse(text);
+                } catch(err) {
+                    throw new Error("Erreur serveur : " + text);
+                }
+
+                if (response.ok && result.statut === 'succes') {
+                    orderForm.style.display = 'none';
+                    successMessage.innerText = '✅ ' + result.message;
+                    successMessage.style.display = 'block';
+                    cart = [];
+                    updateCartUI();
+                    setTimeout(() => orderModal.classList.remove('show'), 3000);
+                } else {
+                    alert('Erreur: ' + (result.message || 'Une erreur est survenue.'));
+                }
+            } catch (error) {
+                console.error(error);
+                if (window.location.protocol === 'file:') {
+                    alert('Erreur: Utilisez http://localhost/site-web-burger/');
+                } else {
+                    alert('Erreur système : ' + error.message);
+                }
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        });
+    </script>
 </body>
 </html>

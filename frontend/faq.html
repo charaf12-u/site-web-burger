@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | Gourmet Burger</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .faq-item {
+            background: var(--white);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+        .faq-question {
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            color: var(--secondary-color);
+            margin: 0;
+            background: var(--white);
+            transition: all 0.3s ease;
+        }
+        .faq-question:hover {
+            color: var(--primary-color);
+        }
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+        .faq-item.active .faq-answer {
+            padding: 0 25px 25px 25px;
+            max-height: 300px;
+        }
+        .faq-icon {
+            font-size: 24px;
+            font-weight: 300;
+            transition: transform 0.3s ease;
+            color: var(--primary-color);
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container flex">
+            <div class="logo">
+                <a href="../index.html" style="text-decoration: none;"><h1>Gourmet<span>BURGER</span></h1></a>
+            </div>
+            <nav>
+                <ul class="nav-links flex">
+                    <li><a href="../index.html" class="nav-link">Accueil</a></li>
+                    <li><a href="ingredients.html" class="nav-link">Nos Ingrédients</a></li>
+                    <li><a href="../index.html#menu" class="nav-link">Notre Menu</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li><a href="faq.html" class="nav-link active">FAQ</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions flex">
+                <a href="../index.html#menu" class="btn-primary hide-mobile" style="text-decoration: none;"><span>Commander en ligne</span></a>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Banner Section -->
+        <section class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('assets/img/article-3.png'); padding: 120px 0;">
+            <div class="container">
+                <h2 style="font-size: 50px; color: var(--white); margin-bottom: 15px;">Foire Aux Questions</h2>
+                <p style="font-size: 18px; color: #ddd;">Tout ce que vous devez savoir sur nos délicieux burgers.</p>
+            </div>
+        </section>
+
+        <!-- FAQ Content -->
+        <section style="padding: 80px 0; background-color: var(--background-light);">
+            <div class="container" style="max-width: 800px;">
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">Vos viandes sont-elles fraîches ou surgelées ? <span class="faq-icon">+</span></h3>
+                    <div class="faq-answer">
+                        Absolument fraîches ! Nous ne congelons jamais notre viande. Notre bœuf 100% origine locale est haché sur place chaque matin pour garantir une tendreté et un goût optimaux.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-question">Avez-vous des options végétariennes ou vegan ? <span class="faq-icon">+</span></h3>
+                    <div class="faq-answer">
+                        Oui, nous proposons plusieurs alternatives sans viande, dont notre fameuse "Salade Végétarienne Gourmet" et un burger composé d'une galette végétale maison à base de lentilles et champignons frais.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-question">Puis-je commander pour me faire livrer ? <span class="faq-icon">+</span></h3>
+                    <div class="faq-answer">
+                        Bien sûr ! Vous pouvez commander directement via notre site web en cliquant sur les boutons "Commander" dans le menu. La livraison est actuellement gratuite pour vos premières commandes.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-question">Quelles sont vos pratiques en matière d'hygiène ? <span class="faq-icon">+</span></h3>
+                    <div class="faq-answer">
+                        L'hygiène est notre priorité absolue. En plus des normes strictes HACCP, notre cuisine est nettoyée en profondeur plusieurs fois par jour et nos chefs manipulent les ingrédients avec un soin extrêmement rigoureux.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2024 Gourmet BURGER | Tous droits réservés | Excellence Culinaire</p>
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinksGroup = document.querySelector('.nav-links');
+        if(hamburger) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinksGroup.classList.toggle('active');
+            });
+        }
+
+        // Accordion Logic
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                // Close other open items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                // Toggle current
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gourmet Burger | Dashboard Admin</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B35;
+            --primary-hover: #E85A2A;
+            --secondary: #402218;
+            --bg-body: #FFF8F0;
+            --white: #FFFFFF;
+            --text-dark: #2D1A12;
+            --text-muted: #6D5B52;
+            --success: #10B981;
+            --danger: #EF4444;
+            --warning: #F59E0B;
+            --sidebar-width: 280px;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--secondary);
+            color: var(--white);
+            position: fixed;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 20px;
+            z-index: 1000;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .logo h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            letter-spacing: 0.5px;
+            color: var(--white);
+        }
+
+        .logo h1 span { color: var(--primary); }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            color: rgba(255, 255, 255, 0.8) !important;
+            text-decoration: none !important;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-link i { font-size: 18px; width: 24px; text-align: center; }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white) !important;
+        }
+
+        .nav-link.active {
+            background-color: var(--primary);
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .logout-btn {
+            margin-top: auto;
+            color: #FF8A8A !important;
+        }
+
+        /* Main Content Styling */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 40px;
+            max-width: calc(100vw - var(--sidebar-width));
+        }
+
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .header-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: var(--secondary);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background-color: var(--white);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .icon-blue { background-color: rgba(59, 130, 246, 0.1); color: #3B82F6; }
+        .icon-orange { background-color: rgba(255, 107, 53, 0.1); color: var(--primary); }
+        .icon-green { background-color: rgba(16, 185, 129, 0.1); color: var(--success); }
+
+        .stat-info h4 { font-size: 14px; color: var(--text-muted); font-weight: 500; margin-bottom: 5px; }
+        .stat-info .value { font-size: 26px; font-weight: 800; color: var(--secondary); }
+
+        /* Table Styling */
+        .table-container {
+            background-color: var(--white);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .table-header h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--secondary); }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background-color: #F9FAFB;
+            padding: 18px 15px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        td {
+            padding: 20px 15px;
+            border-bottom: 1px solid #F3F4F6;
+            font-size: 14px;
+            color: var(--text-dark);
+            vertical-align: middle;
+        }
+
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background-color: #FEFBF8; }
+
+        .client-info strong { display: block; margin-bottom: 4px; color: var(--secondary); font-size: 15px; }
+        .client-info span { font-size: 13px; color: var(--text-muted); }
+
+        .order-content { font-size: 14px; line-height: 1.6; color: #4B5563; }
+        .order-content strong { color: var(--primary); font-weight: 700; }
+
+        .badge {
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-en_attente { background-color: #FEF3C7; color: #92400E; }
+        .badge-validee { background-color: #D1FAE5; color: #065F46; }
+        .badge-annulee { background-color: #FEE2E2; color: #991B1B; }
+
+        .actions { display: flex; gap: 10px; }
+
+        .btn-action {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-success { background-color: var(--success); color: white; }
+        .btn-success:hover { background-color: #059669; transform: translateY(-2px) scale(1.05); box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3); }
+
+        .btn-delete { background-color: var(--danger); color: white; }
+        .btn-delete:hover { background-color: #DC2626; transform: translateY(-2px) scale(1.05); box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3); }
+
+        .refresh-btn {
+            background: none;
+            border: 1px solid #E5E7EB;
+            color: var(--text-muted);
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .refresh-btn:hover { background: #F3F4F6; color: var(--primary); border-color: var(--primary); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar { width: 85px; padding: 30px 10px; }
+            .logo h1, .nav-link span { display: none; }
+            .nav-link { padding: 14px; justify-content: center; }
+            .nav-link i { font-size: 20px; }
+            .main-content { margin-left: 85px; max-width: calc(100vw - 85px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <h1>Gourmet<span>BURGER</span></h1>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#" id="linkCommandes" class="nav-link active"><i class="fas fa-shopping-basket"></i> <span>Commandes</span></a></li>
+                <li><a href="#" id="linkMessages" class="nav-link"><i class="fas fa-comment-alt"></i> <span>Messages</span></a></li>
+                <li><a href="#" class="nav-link"><i class="fas fa-gear"></i> <span>Paramètres</span></a></li>
+                <li><a href="#" class="nav-link logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> <span>Quitter</span></a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Commandes Section -->
+        <div id="sectionCommandes">
+            <header class="header-section">
+                <div>
+                    <h2>Gestion des Commandes</h2>
+                    <p style="color: var(--text-muted); font-weight: 500;">Interface d'administration Gourmet Burger.</p>
+                </div>
+                <div id="adminUserBadge" style="font-weight: 700; color: var(--secondary);"></div>
+            </header>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon icon-blue"><i class="fas fa-box"></i></div>
+                    <div class="stat-info">
+                        <h4>Total Commandes</h4>
+                        <div class="value" id="statTotal">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-orange"><i class="fas fa-clock"></i></div>
+                    <div class="stat-info">
+                        <h4>En Attente</h4>
+                        <div class="value" id="statPending">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-green"><i class="fas fa-money-bill-wave"></i></div>
+                    <div class="stat-info">
+                        <h4>Ventes (DH)</h4>
+                        <div class="value" id="statRevenue">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Table -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h3>Suivi des Commandes</h3>
+                    <button class="refresh-btn" onclick="fetchOrders()"><i class="fas fa-sync-alt"></i></button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Client & Contact</th>
+                            <th>Détails de la Commande</th>
+                            <th>État</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersContainer">
+                        <!-- Dynamic Content -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Messages Section -->
+        <div id="sectionMessages" style="display: none;">
+            <header class="header-section">
+                <div>
+                    <h2>Messages de Contact</h2>
+                    <p style="color: var(--text-muted); font-weight: 500;">Consultez les messages envoyés depuis le site.</p>
+                </div>
+            </header>
+
+            <div class="table-container">
+                <div class="table-header">
+                    <h3>Boîte de Réception</h3>
+                    <button class="refresh-btn" onclick="fetchMessages()"><i class="fas fa-sync-alt"></i></button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Expéditeur</th>
+                            <th>Sujet</th>
+                            <th>Message</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="messagesContainer">
+                        <!-- Dynamic Content -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Section Switching Logic
+        const linkCommandes = document.getElementById('linkCommandes');
+        const linkMessages = document.getElementById('linkMessages');
+        const sectionCommandes = document.getElementById('sectionCommandes');
+        const sectionMessages = document.getElementById('sectionMessages');
+
+        linkCommandes.addEventListener('click', (e) => {
+            e.preventDefault();
+            linkCommandes.classList.add('active');
+            linkMessages.classList.remove('active');
+            sectionCommandes.style.display = 'block';
+            sectionMessages.style.display = 'none';
+            fetchOrders();
+        });
+
+        linkMessages.addEventListener('click', (e) => {
+            e.preventDefault();
+            linkMessages.classList.add('active');
+            linkCommandes.classList.remove('active');
+            sectionMessages.style.display = 'block';
+            sectionCommandes.style.display = 'none';
+            fetchMessages();
+        });
+
+
+        // ---- ORDERS LOGIC ---- //
+
+        async function fetchOrders() {
+            try {
+                const response = await fetch('../../backend/api/admin_orders.php');
+                if (response.status === 401) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+                const orders = await response.json();
+                updateStats(orders);
+                renderOrders(orders);
+            } catch (error) {
+                console.error('Fetch error:', error);
+            }
+        }
+
+        function updateStats(orders) {
+            const total = orders.length;
+            const pending = orders.filter(o => o.status === 'en_attente').length;
+            let revenue = 0;
+
+            orders.forEach(o => {
+                if(o.status === 'validee') {
+                    try {
+                        const items = JSON.parse(o.product);
+                        if(Array.isArray(items)) {
+                            items.forEach(item => {
+                                revenue += parseFloat(item.price) * item.quantity;
+                            });
+                        }
+                    } catch(e) {}
+                }
+            });
+
+            document.getElementById('statTotal').innerText = total;
+            document.getElementById('statPending').innerText = pending;
+            document.getElementById('statRevenue').innerText = revenue.toLocaleString() + ' DH';
+        }
+
+        function renderOrders(orders) {
+            const container = document.getElementById('ordersContainer');
+            container.innerHTML = '';
+
+            orders.forEach(order => {
+                let itemsList = '';
+                try {
+                    const items = JSON.parse(order.product);
+                    if(Array.isArray(items)) {
+                        items.forEach(item => {
+                            itemsList += `<div><strong>${item.quantity}x</strong> ${item.name}</div>`;
+                        });
+                    } else {
+                        itemsList = order.product;
+                    }
+                } catch(e) {
+                    itemsList = order.product;
+                }
+
+                const date = new Date(order.created_at).toLocaleDateString('fr-FR', {
+                    day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'
+                });
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>
+                        <strong style="color:var(--primary)">#${order.id}</strong><br>
+                        <span style="font-size: 11px; color: var(--text-muted);">${date}</span>
+                    </td>
+                    <td class="client-info">
+                        <strong>${order.name}</strong>
+                        <span><i class="fas fa-phone" style="font-size: 10px; margin-right:5px;"></i> ${order.phone}</span><br>
+                        <span style="display:inline-block; margin-top:4px;"><i class="fas fa-map-marker-alt" style="font-size: 10px; margin-right:5px;"></i> ${order.address}</span>
+                    </td>
+                    <td class="order-content">${itemsList}</td>
+                    <td>
+                        <span class="badge badge-${order.status}">${order.status.replace('_', ' ')}</span>
+                    </td>
+                    <td class="actions">
+                        ${order.status === 'en_attente' ? `
+                            <button class="btn-action btn-success" title="Valider" onclick="updateStatus(${order.id}, 'validee')">
+                                <i class="fas fa-check"></i>
+                            </button>
+                        ` : ''}
+                        <button class="btn-action btn-delete" title="Supprimer" onclick="deleteOrder(${order.id})">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </td>
+                `;
+                container.appendChild(tr);
+            });
+        }
+
+        async function updateStatus(id, status) {
+            const response = await fetch('../../backend/api/admin_orders.php', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, status })
+            });
+            if (response.ok) fetchOrders();
+        }
+
+        async function deleteOrder(id) {
+            if(!confirm('Êtes-vous sûr de vouloir supprimer cette commande ?')) return;
+            const response = await fetch('../../backend/api/admin_orders.php?id=' + id, {
+                method: 'DELETE'
+            });
+            if (response.ok) fetchOrders();
+        }
+
+        // ---- MESSAGES LOGIC ---- //
+
+        async function fetchMessages() {
+            try {
+                const response = await fetch('../../backend/api/admin_messages.php');
+                if (response.status === 401) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+                const messages = await response.json();
+                renderMessages(messages);
+            } catch (error) {
+                console.error('Fetch error:', error);
+            }
+        }
+
+        function renderMessages(messages) {
+            const container = document.getElementById('messagesContainer');
+            container.innerHTML = '';
+
+            messages.forEach(msg => {
+                const date = new Date(msg.created_at).toLocaleDateString('fr-FR', {
+                    day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'
+                });
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>
+                        <span style="font-size: 12px; color: var(--text-muted);">${date}</span>
+                    </td>
+                    <td class="client-info">
+                        <strong>${msg.nom}</strong>
+                        <span><i class="fas fa-envelope" style="font-size: 10px; margin-right:5px;"></i> ${msg.email}</span>
+                    </td>
+                    <td>
+                        <strong style="color: var(--secondary); font-size: 14px;">${msg.sujet}</strong>
+                    </td>
+                    <td class="order-content" style="max-width: 300px; white-space: normal;">
+                        ${msg.message}
+                    </td>
+                    <td class="actions">
+                        <button class="btn-action btn-delete" title="Supprimer" onclick="deleteMessage(${msg.id})">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </td>
+                `;
+                container.appendChild(tr);
+            });
+        }
+
+        async function deleteMessage(id) {
+            if(!confirm('Êtes-vous sûr de vouloir supprimer ce message ?')) return;
+            const response = await fetch('../../backend/api/admin_messages.php?id=' + id, {
+                method: 'DELETE'
+            });
+            if (response.ok) fetchMessages();
+        }
+
+
+        // ---- LOGOUT LOGIC ---- //
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = 'login.html';
+        });
+
+        // Initial fetch
+        fetchOrders();
+    </script>
+</body>
+</html>
