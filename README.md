@@ -1,6 +1,6 @@
 # 🍔 Gourmet BURGER | L'excellence Culinaire
 
-![Gourmet Burger](frontend/assets/img/article-1.png)
+![Gourmet Burger](frontend/assets/img/screenshot.png)
 
 Un site web full-stack moderne et élégant pour un restaurant de burgers haut de gamme. Ce projet a été conçu pour offrir une expérience utilisateur fluide et immersive pour les clients et un panneau de gestion puissant pour les administrateurs.
 
